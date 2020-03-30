@@ -8,7 +8,7 @@
 
 ## Demo
 
-* ![Demo](https://htmlpreview.github.io/?https://raw.githubusercontent.com/rodolfoap/PolygonDraw/master/index.html "Demo")
+* https://htmlpreview.github.io/?https://raw.githubusercontent.com/rodolfoap/PolygonDraw/master/index.html
 
 ## Technologies used
 
