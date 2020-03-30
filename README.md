@@ -1,5 +1,7 @@
 # Open Image, Draw Polygon
 
+![PolygonDraw](https://raw.githubusercontent.com/rodolfoap/PolygonDraw/master/pdraw.png "PolygonDraw")
+
 * Based on:
 	* https://github.com/matteomattei/jPolygon
 	* https://gist.github.com/mfyz/10198229
