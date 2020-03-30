@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<input type="file" id="imageFile"/>
+<div class="resultImageWrapper"><!--img src="" alt="" id="resultImage" width="500"/></div-->
+<canvas id="jPolygon" width="4" height="4" style="cursor:crosshair" data-imgsrc="image.jpg" onmousedown="point_it(event)" oncontextmenu="return false;">ERROR</canvas><br/>
+</div>
+<input type=button value="Undo" onclick="undo()"/>
+<input type=button value="Clear" onclick="clear_canvas()"/><br/>
+<textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+	var ctx;
+	$(function(){
+		var fileInput=$('#imageFile');
+		var canvas = document.getElementById('jPolygon');
+		fileInput.on('change', function(event) {
+			var file = event.target.files[0];
+			resizeImage(file, 1000, function(result) {
+				$('#resultImage').attr('src', result);
+			});
+		});
+		resizeImage = function(file, size, callback) {
+			var fileTracker = new FileReader;
+			fileTracker.onload = function() {
+				var image = new Image();
+				image.onload = function(){
+					/* if(image.height > size) { image.width *= size / image.height; image.height = size; } */
+					if(image.width > size) { image.height *= size / image.width; image.width = size; }
+					var ctxIn = canvas.getContext("2d");
+					ctxIn.clearRect(0, 0, canvas.width, canvas.height);
+					canvas.width = image.width;
+					canvas.height = image.height;
+					ctxIn.drawImage(image, 0, 0, image.width, image.height);
+					callback(canvas.toDataURL("image/png"));
+					ctx=ctxIn;
+				};
+				image.src = this.result;
+				canvas.setAttribute('data-imgsrc', image);
+			}
+			fileTracker.readAsDataURL(file);
+		};
+	});
+</script>
+
+<script type="text/javascript" src="jPolygon.js"></script>
+</body>
+</html>
